@@ -107,7 +107,7 @@ class UninstallHandlerTest extends TestCase
 
         $urlGenerator = new FakeUrlGenerator(
             true,
-            false,
+            null,
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
@@ -133,7 +133,7 @@ class UninstallHandlerTest extends TestCase
         $urlGenerator = new FakeUrlGenerator(
             true,
             'https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
-            false
+            'https://example.com/acme/my-project/release/v1.0.1'
         );
 
         $expectedOutput = [

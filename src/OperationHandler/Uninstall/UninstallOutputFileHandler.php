@@ -14,24 +14,20 @@ namespace Spiriit\ComposerWriteChangelogs\OperationHandler\Uninstall;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UninstallOperation;
 use Composer\Package\PackageInterface;
-use Composer\Package\Version\VersionParser;
 use Spiriit\ComposerWriteChangelogs\Outputter\FileOutputter;
 use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 use Spiriit\ComposerWriteChangelogs\Version;
 
 class UninstallOutputFileHandler extends AbstractUninstallHandler
 {
-    /**
-     * @var string
-     */
-    private $outputFormat;
+    private string $outputFormat;
 
     public function __construct(string $outputFormat)
     {
         $this->outputFormat = $outputFormat;
     }
 
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): array
     {
         if (!($operation instanceof UninstallOperation)) {
             throw new \LogicException('Operation should be an instance of UninstallOperation');
@@ -43,23 +39,17 @@ class UninstallOutputFileHandler extends AbstractUninstallHandler
             $package->getPrettyVersion(),
             method_exists($package, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
                 ? $package->getFullPrettyVersion()
-                : VersionParser::formatVersion($package)
+                : $package->getPrettyVersion()
         );
 
         if (FileOutputter::JSON_FORMAT === $this->outputFormat) {
-            return $this->getJsonOutput($package, $version, $urlGenerator);
+            return $this->getJsonOutput($package, $version);
         } else {
-            return $this->getTextOutput($package, $version, $urlGenerator);
+            return $this->getTextOutput($package, $version);
         }
     }
 
-    /**
-     * @param PackageInterface $package
-     * @param Version          $version
-     *
-     * @return array
-     */
-    private function getJsonOutput(PackageInterface $package, Version $version)
+    private function getJsonOutput(PackageInterface $package, Version $version): array
     {
         $output = [];
 
@@ -71,13 +61,7 @@ class UninstallOutputFileHandler extends AbstractUninstallHandler
         return $output;
     }
 
-    /**
-     * @param PackageInterface $package
-     * @param Version          $version
-     *
-     * @return array
-     */
-    private function getTextOutput(PackageInterface $package, Version $version)
+    private function getTextOutput(PackageInterface $package, Version $version): array
     {
         $output = [];
 

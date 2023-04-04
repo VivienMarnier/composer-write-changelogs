@@ -21,8 +21,7 @@ use Spiriit\ComposerWriteChangelogs\tests\resources\FakeUrlGenerator;
 
 class InstallHandlerTest extends TestCase
 {
-    /** @var InstallHandler */
-    private $SUT;
+    private InstallHandler $SUT;
 
     protected function setUp(): void
     {
@@ -107,7 +106,7 @@ class InstallHandlerTest extends TestCase
 
         $urlGenerator = new FakeUrlGenerator(
             true,
-            false,
+            null,
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
@@ -134,11 +133,12 @@ class InstallHandlerTest extends TestCase
         $urlGenerator = new FakeUrlGenerator(
             true,
             'https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
-            false
+            'https://example.com/acme/my-project/release/v1.0.1'
         );
 
         $expectedOutput = [
             ' - <fg=green>acme/my-project</fg=green> installed in version <fg=yellow>v1.0.0</fg=yellow>',
+            '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
         ];
 
         $this->assertSame(

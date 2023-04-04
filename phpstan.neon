@@ -7,6 +7,8 @@ parameters:
     - tests
   bootstrapFiles:
     - vendor/bin/.phpunit/phpunit/vendor/autoload.php
+  excludePaths:
+    - tests/ChangelogsPluginTest.php
   parallel:
     maximumNumberOfProcesses: 10
 

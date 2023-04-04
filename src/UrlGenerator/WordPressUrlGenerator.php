@@ -20,10 +20,7 @@ class WordPressUrlGenerator implements UrlGenerator
 {
     public const DOMAIN = 'svn.wordpress.org';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supports($sourceUrl)
+    public function supports(string $sourceUrl): bool
     {
         return false !== strpos($sourceUrl, self::DOMAIN);
     }
@@ -31,8 +28,12 @@ class WordPressUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
+    public function generateCompareUrl(?string $sourceUrlFrom, Version $versionFrom, ?string $sourceUrlTo, Version $versionTo): ?string
     {
+        if ((!is_null($sourceUrlFrom) && !$this->supports($sourceUrlFrom)) || (!is_null($sourceUrlTo) && !$this->supports($sourceUrlTo))) {
+            return null;
+        }
+
         if (preg_match('#plugins.svn.wordpress.org/(.*)/#', $sourceUrlTo, $matches)) {
             $plugin = $matches[1];
 
@@ -45,14 +46,14 @@ class WordPressUrlGenerator implements UrlGenerator
             return sprintf('https://themes.trac.wordpress.org/log/%s/', $theme);
         }
 
-        return false;
+        return null;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl($sourceUrl, Version $version)
+    public function generateReleaseUrl(?string $sourceUrl, Version $version): ?string
     {
-        return false;
+        return null;
     }
 }

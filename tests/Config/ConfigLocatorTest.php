@@ -19,22 +19,19 @@ use Spiriit\ComposerWriteChangelogs\Config\ConfigLocator;
 
 class ConfigLocatorTest extends TestCase
 {
-    /** @var false|string|null */
-    private $localConfigPath;
+    private ?string $localConfigPath;
 
-    /** @var false|string|null */
-    private $globalConfigPath;
+    private ?string $globalConfigPath;
 
-    /** @var ConfigLocator */
-    private $SUT;
+    private ConfigLocator $SUT;
 
     /**
      * {@inheritdoc}
      */
     protected function setUp(): void
     {
-        $this->localConfigPath = realpath(__DIR__ . '/../fixtures/local');
-        $this->globalConfigPath = realpath(__DIR__ . '/../fixtures/home');
+        $this->localConfigPath = realpath(__DIR__ . '/../fixtures/local') ? realpath(__DIR__ . '/../fixtures/local') : null;
+        $this->globalConfigPath = realpath(__DIR__ . '/../fixtures/home') ? realpath(__DIR__ . '/../fixtures/home') : null;
 
         $config = new Config(false, $this->localConfigPath);
         $config->merge([

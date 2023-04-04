@@ -13,7 +13,6 @@ namespace Spiriit\ComposerWriteChangelogs\OperationHandler\Uninstall;
 
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UninstallOperation;
-use Composer\Package\Version\VersionParser;
 use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 use Spiriit\ComposerWriteChangelogs\Version;
 
@@ -22,7 +21,7 @@ class UninstallHandler extends AbstractUninstallHandler
     /**
      * {@inheritdoc}
      */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): array
     {
         if (!($operation instanceof UninstallOperation)) {
             throw new \LogicException('Operation should be an instance of UninstallOperation');
@@ -36,7 +35,7 @@ class UninstallHandler extends AbstractUninstallHandler
             $package->getPrettyVersion(),
             method_exists($package, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
                 ? $package->getFullPrettyVersion()
-                : VersionParser::formatVersion($package)
+                : $package->getPrettyVersion()
         );
 
         $output[] = sprintf(

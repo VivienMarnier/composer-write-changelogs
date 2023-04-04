@@ -16,31 +16,20 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class FakeUrlGenerator implements UrlGenerator
 {
-    /** @var bool */
-    private $supports;
+    private bool $supports;
 
-    /** @var string|false */
-    private $compareUrl;
+    private ?string $compareUrl;
 
-    /** @var string|false */
-    private $releaseUrl;
+    private ?string $releaseUrl;
 
-    /**
-     * @param bool         $supports
-     * @param string|false $compareUrl
-     * @param string       $releaseUrl [false $releaseUrl
-     */
-    public function __construct($supports, $compareUrl, $releaseUrl)
+    public function __construct(bool $supports, ?string $compareUrl, ?string $releaseUrl)
     {
         $this->supports = $supports;
         $this->compareUrl = $compareUrl;
         $this->releaseUrl = $releaseUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supports($sourceUrl)
+    public function supports(?string $sourceUrl): bool
     {
         return $this->supports;
     }
@@ -48,7 +37,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
+    public function generateCompareUrl(?string $sourceUrlFrom, Version $versionFrom, ?string $sourceUrlTo, Version $versionTo): ?string
     {
         return $this->compareUrl;
     }
@@ -56,7 +45,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl($sourceUrl, Version $version)
+    public function generateReleaseUrl(?string $sourceUrl, Version $version): ?string
     {
         return $this->releaseUrl;
     }

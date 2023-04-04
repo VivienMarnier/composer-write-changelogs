@@ -18,8 +18,7 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class GithubUrlGeneratorTest extends TestCase
 {
-    /** @var GithubUrlGenerator */
-    private $SUT;
+    private GithubUrlGenerator $SUT;
 
     protected function setUp(): void
     {
@@ -146,7 +145,7 @@ class GithubUrlGeneratorTest extends TestCase
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateCompareUrl(
                 '/home/toto/work/my-package',
                 $versionFrom,
@@ -155,7 +154,7 @@ class GithubUrlGeneratorTest extends TestCase
             )
         );
 
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateCompareUrl(
                 'https://github.com/acme1/repo',
                 $versionFrom,
@@ -208,14 +207,14 @@ class GithubUrlGeneratorTest extends TestCase
      */
     public function testItDoesNotGenerateReleaseUrlsForDevVersion(): void
     {
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateReleaseUrl(
                 'https://github.com/acme/repo',
                 new Version('9999999-dev', 'dev-master', 'dev-master 1234abc')
             )
         );
 
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateReleaseUrl(
                 'https://github.com/acme/repo',
                 new Version('dev-fix/issue', 'dev-fix/issue', 'dev-fix/issue 1234abc')

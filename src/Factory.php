@@ -16,10 +16,7 @@ use Spiriit\ComposerWriteChangelogs\Outputter\Outputter;
 
 class Factory
 {
-    /**
-     * @return OperationHandler\OperationHandler[]
-     */
-    public static function createOperationHandlers()
+    public static function createOperationHandlers(): array
     {
         return [
             new OperationHandler\Install\InstallHandler(),
@@ -28,10 +25,7 @@ class Factory
         ];
     }
 
-    /**
-     * @return OperationHandler\OperationHandler[]
-     */
-    public static function createOperationOutputFileHandlers(string $outputFormat)
+    public static function createOperationOutputFileHandlers(string $outputFormat): array
     {
         return [
             new OperationHandler\Install\InstallOutputFileHandler($outputFormat),
@@ -40,12 +34,7 @@ class Factory
         ];
     }
 
-    /**
-     * @param string[] $gitlabHosts
-     *
-     * @return UrlGenerator\UrlGenerator[]
-     */
-    public static function createUrlGenerators(array $gitlabHosts = [])
+    public static function createUrlGenerators(array $gitlabHosts = []): array
     {
         $hosts = [
             new UrlGenerator\GithubUrlGenerator(),
@@ -60,12 +49,7 @@ class Factory
         return $hosts;
     }
 
-    /**
-     * @param string[] $gitlabHosts
-     *
-     * @return Outputter
-     */
-    public static function createOutputter(array $gitlabHosts = [])
+    public static function createOutputter(array $gitlabHosts = []): Outputter
     {
         return new Outputter(
             self::createOperationHandlers(),
@@ -73,12 +57,7 @@ class Factory
         );
     }
 
-    /**
-     * @param string[] $gitlabHosts
-     *
-     * @return FileOutputter
-     */
-    public static function createFileOutputter(string $outputFormat, array $gitlabHosts = [])
+    public static function createFileOutputter(string $outputFormat, array $gitlabHosts = []): FileOutputter
     {
         return new FileOutputter(
             self::createOperationOutputFileHandlers($outputFormat),

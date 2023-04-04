@@ -18,21 +18,13 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class FakeHandler implements OperationHandler
 {
-    /** @var bool */
-    private $supports;
+    private bool $supports;
 
-    /** @var string */
-    private $sourceUrl;
+    private string $sourceUrl;
 
-    /** @var string */
-    private $output;
+    private string $output;
 
-    /**
-     * @param bool   $supports
-     * @param string $sourceUrl
-     * @param string $output
-     */
-    public function __construct($supports, $sourceUrl, $output)
+    public function __construct(bool $supports, string $sourceUrl, string $output)
     {
         $this->supports = $supports;
         $this->sourceUrl = $sourceUrl;
@@ -42,7 +34,7 @@ class FakeHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function supports(OperationInterface $operation)
+    public function supports(OperationInterface $operation): bool
     {
         return $this->supports;
     }
@@ -50,7 +42,7 @@ class FakeHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function extractSourceUrl(OperationInterface $operation)
+    public function extractSourceUrl(OperationInterface $operation): ?string
     {
         return $this->sourceUrl;
     }
@@ -58,7 +50,7 @@ class FakeHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): ?array
     {
         if (!($operation instanceof FakeOperation)) {
             return [];

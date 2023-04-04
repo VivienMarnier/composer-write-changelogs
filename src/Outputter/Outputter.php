@@ -13,10 +13,7 @@ namespace Spiriit\ComposerWriteChangelogs\Outputter;
 
 class Outputter extends AbstractOutputter
 {
-    /**
-     * @return string
-     */
-    public function getOutput()
+    public function getOutput(): string
     {
         $output = [];
 

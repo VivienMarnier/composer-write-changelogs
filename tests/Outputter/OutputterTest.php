@@ -12,23 +12,18 @@
 namespace Spiriit\ComposerWriteChangelogs\tests\Outputter;
 
 use PHPUnit\Framework\TestCase;
-use Spiriit\ComposerWriteChangelogs\OperationHandler\OperationHandler;
 use Spiriit\ComposerWriteChangelogs\Outputter\Outputter;
 use Spiriit\ComposerWriteChangelogs\tests\resources\FakeHandler;
 use Spiriit\ComposerWriteChangelogs\tests\resources\FakeOperation;
 use Spiriit\ComposerWriteChangelogs\tests\resources\FakeUrlGenerator;
-use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 
 class OutputterTest extends TestCase
 {
-    /** @var Outputter */
-    private $SUT;
+    private Outputter $SUT;
 
-    /** @var OperationHandler[] */
-    private $operationHandlers;
+    private array $operationHandlers;
 
-    /** @var UrlGenerator[] */
-    private $urlGenerators;
+    private array $urlGenerators;
 
     protected function setUp(): void
     {

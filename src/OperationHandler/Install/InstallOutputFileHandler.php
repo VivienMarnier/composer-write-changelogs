@@ -14,17 +14,13 @@ namespace Spiriit\ComposerWriteChangelogs\OperationHandler\Install;
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\Package\PackageInterface;
-use Composer\Package\Version\VersionParser;
 use Spiriit\ComposerWriteChangelogs\Outputter\FileOutputter;
 use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 use Spiriit\ComposerWriteChangelogs\Version;
 
 class InstallOutputFileHandler extends AbstractInstallHandler
 {
-    /**
-     * @var string
-     */
-    private $outputFormat;
+    private string $outputFormat;
 
     public function __construct(string $outputFormat)
     {
@@ -34,7 +30,7 @@ class InstallOutputFileHandler extends AbstractInstallHandler
     /**
      * {@inheritdoc}
      */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): ?array
     {
         if (!($operation instanceof InstallOperation)) {
             throw new \LogicException('Operation should be an instance of InstallOperation');
@@ -46,7 +42,7 @@ class InstallOutputFileHandler extends AbstractInstallHandler
             $package->getPrettyVersion(),
             method_exists($package, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
                 ? $package->getFullPrettyVersion()
-                : VersionParser::formatVersion($package)
+                : $package->getPrettyVersion()
         );
 
         if (FileOutputter::JSON_FORMAT === $this->outputFormat) {
@@ -56,14 +52,7 @@ class InstallOutputFileHandler extends AbstractInstallHandler
         }
     }
 
-    /**
-     * @param PackageInterface  $package
-     * @param Version           $version
-     * @param UrlGenerator|null $urlGenerator
-     *
-     * @return array
-     */
-    private function getTextOutput(PackageInterface $package, Version $version, UrlGenerator $urlGenerator = null)
+    private function getTextOutput(PackageInterface $package, Version $version, UrlGenerator $urlGenerator = null): array
     {
         $output = [];
 
@@ -90,14 +79,7 @@ class InstallOutputFileHandler extends AbstractInstallHandler
         return $output;
     }
 
-    /**
-     * @param PackageInterface  $package
-     * @param Version           $version
-     * @param UrlGenerator|null $urlGenerator
-     *
-     * @return array
-     */
-    private function getJsonOutput(PackageInterface $package, Version $version, UrlGenerator $urlGenerator = null)
+    private function getJsonOutput(PackageInterface $package, Version $version, UrlGenerator $urlGenerator = null): array
     {
         $output = [];
 

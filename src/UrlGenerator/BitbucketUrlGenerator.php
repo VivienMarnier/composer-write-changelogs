@@ -18,7 +18,7 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return 'bitbucket.org';
     }
@@ -26,12 +26,12 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
+    public function generateCompareUrl(?string $sourceUrlFrom, Version $versionFrom, ?string $sourceUrlTo, Version $versionTo): ?string
     {
         // Check if both urls come from the supported domain
         // It avoids problems when one url is from another domain or is local
-        if (!$this->supports($sourceUrlFrom) || !$this->supports($sourceUrlTo)) {
-            return false;
+        if ((!is_null($sourceUrlFrom) && !$this->supports($sourceUrlFrom)) || (!is_null($sourceUrlTo) && !$this->supports($sourceUrlTo))) {
+            return null;
         }
 
         $sourceUrlFrom = $this->generateBaseUrl($sourceUrlFrom);
@@ -65,9 +65,9 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl($sourceUrl, Version $version)
+    public function generateReleaseUrl(?string $sourceUrl, Version $version): ?string
     {
         // Releases are not supported on Bitbucket :'(
-        return false;
+        return null;
     }
 }

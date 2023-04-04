@@ -34,17 +34,13 @@ use Spiriit\ComposerWriteChangelogs\ChangelogsPlugin;
 
 class ChangelogsPluginTest extends TestCase
 {
-    /** @var BufferIO */
-    private $io;
+    private BufferIO $io;
 
-    /** @var Composer */
-    private $composer;
+    private Composer $composer;
 
-    /** @var Config */
-    private $config;
+    private Config $config;
 
-    /** @var string */
-    private $tempDir;
+    private string $tempDir;
 
     /**
      * {@inheritdoc}
@@ -52,7 +48,8 @@ class ChangelogsPluginTest extends TestCase
     protected function setUp(): void
     {
         $this->tempDir = __DIR__ . '/temp';
-        $this->config = new Config(false, realpath(__DIR__ . '/fixtures/local'));
+        $baseDir = realpath(__DIR__ . '/fixtures/local') ? realpath(__DIR__ . '/fixtures/local') : null;
+        $this->config = new Config(false, $baseDir);
         $this->config->merge([
             'config' => [
                 'home' => __DIR__,
@@ -90,14 +87,18 @@ class ChangelogsPluginTest extends TestCase
             return;
         }
         $files = glob($this->tempDir . '/*');
-        foreach ($files as $file) {
-            unlink($file);
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                unlink($file);
+            }
+            rmdir($this->tempDir);
         }
-        rmdir($this->tempDir);
     }
 
     /**
      * @test
+     *
+     * @throws \ReflectionException
      */
     public function testItIsRegisteredAndActivated(): void
     {
@@ -110,6 +111,8 @@ class ChangelogsPluginTest extends TestCase
 
     /**
      * @test
+     *
+     * @throws \ReflectionException
      */
     public function testItReceivesEvent(): void
     {
@@ -241,10 +244,7 @@ OUTPUT;
         $addPluginReflection->invoke($this->composer->getPluginManager(), $plugin);
     }
 
-    /**
-     * @return UpdateOperation
-     */
-    private function getUpdateOperation()
+    private function getUpdateOperation(): UpdateOperation
     {
         $initialPackage = new Package('foo/bar', '1.0.0.0', 'v1.0.0');
         $initialPackage->setSourceUrl('https://github.com/foo/bar.git');
@@ -255,12 +255,7 @@ OUTPUT;
         return new UpdateOperation($initialPackage, $targetPackage);
     }
 
-    /**
-     * @param $operation
-     *
-     * @return PackageEvent
-     */
-    private function createPostPackageUpdateEvent($operation)
+    private function createPostPackageUpdateEvent($operation): PackageEvent
     {
         if (version_compare(PluginInterface::PLUGIN_API_VERSION, '2.0.0') >= 0) {
             return new PackageEvent(

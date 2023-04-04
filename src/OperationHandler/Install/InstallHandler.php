@@ -13,7 +13,6 @@ namespace Spiriit\ComposerWriteChangelogs\OperationHandler\Install;
 
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\OperationInterface;
-use Composer\Package\Version\VersionParser;
 use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 use Spiriit\ComposerWriteChangelogs\Version;
 
@@ -22,7 +21,7 @@ class InstallHandler extends AbstractInstallHandler
     /**
      * {@inheritdoc}
      */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): ?array
     {
         if (!($operation instanceof InstallOperation)) {
             throw new \LogicException('Operation should be an instance of InstallOperation');
@@ -36,7 +35,7 @@ class InstallHandler extends AbstractInstallHandler
             $package->getPrettyVersion(),
             method_exists($package, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
                 ? $package->getFullPrettyVersion()
-                : VersionParser::formatVersion($package)
+                : $package->getPrettyVersion()
         );
 
         $output[] = sprintf(

@@ -18,22 +18,12 @@ use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 
 abstract class AbstractInstallHandler implements OperationHandler
 {
-    /**
-     * @param OperationInterface $operation
-     *
-     * @return bool
-     */
-    public function supports(OperationInterface $operation)
+    public function supports(OperationInterface $operation): bool
     {
         return $operation instanceof InstallOperation;
     }
 
-    /**
-     * @param OperationInterface $operation
-     *
-     * @return string|null
-     */
-    public function extractSourceUrl(OperationInterface $operation)
+    public function extractSourceUrl(OperationInterface $operation): ?string
     {
         if (!($operation instanceof InstallOperation)) {
             throw new \LogicException('Operation should be an instance of InstallOperation');
@@ -42,13 +32,8 @@ abstract class AbstractInstallHandler implements OperationHandler
         return $operation->getPackage()->getSourceUrl();
     }
 
-    /**
-     * @param OperationInterface $operation
-     * @param UrlGenerator|null  $urlGenerator
-     *
-     * @return array|void
-     */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): ?array
     {
+        return [];
     }
 }

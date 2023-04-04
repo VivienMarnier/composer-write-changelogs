@@ -16,28 +16,20 @@ use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\Package\Package;
 use PHPUnit\Framework\TestCase;
 use Spiriit\ComposerWriteChangelogs\OperationHandler\Install\InstallOutputFileHandler;
-use Spiriit\ComposerWriteChangelogs\OperationHandler\OperationHandler;
 use Spiriit\ComposerWriteChangelogs\OperationHandler\Uninstall\UninstallOutputFileHandler;
 use Spiriit\ComposerWriteChangelogs\OperationHandler\Update\UpdateOutputFileHandler;
 use Spiriit\ComposerWriteChangelogs\Outputter\FileOutputter;
-use Spiriit\ComposerWriteChangelogs\tests\resources\FakeHandler;
-use Spiriit\ComposerWriteChangelogs\tests\resources\FakeOperation;
 use Spiriit\ComposerWriteChangelogs\tests\resources\FakeUrlGenerator;
-use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 
 class FileOutputterTest extends TestCase
 {
-    /** @var FileOutputter */
-    private $fileOutputterText;
+    private FileOutputter $fileOutputterText;
 
-    /** @var FileOutputter */
-    private $fileOutputterJSon;
+    private FileOutputter $fileOutputterJSon;
 
-    /** @var OperationHandler[] */
-    private $operationHandlers;
+    private array $operationHandlers;
 
-    /** @var UrlGenerator[] */
-    private $urlGenerators;
+    private array $urlGenerators;
 
     protected function setUp(): void
     {

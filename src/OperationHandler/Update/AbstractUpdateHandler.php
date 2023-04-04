@@ -21,7 +21,7 @@ class AbstractUpdateHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function supports(OperationInterface $operation)
+    public function supports(OperationInterface $operation): bool
     {
         return $operation instanceof UpdateOperation;
     }
@@ -29,7 +29,7 @@ class AbstractUpdateHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function extractSourceUrl(OperationInterface $operation)
+    public function extractSourceUrl(OperationInterface $operation): ?string
     {
         if (!($operation instanceof UpdateOperation)) {
             throw new \LogicException('Operation should be an instance of UpdateOperation');
@@ -38,12 +38,12 @@ class AbstractUpdateHandler implements OperationHandler
         return $operation->getTargetPackage()->getSourceUrl();
     }
 
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): ?array
     {
+        return [];
     }
 
-    /** @return string */
-    protected function getSemverOutput(string $versionFrom, string $versionTo, bool $withTags = true)
+    protected function getSemverOutput(string $versionFrom, string $versionTo, bool $withTags = true): string
     {
         if (false === strpos($versionFrom, '.') && false === strpos($versionTo, '.')) {
             return '';

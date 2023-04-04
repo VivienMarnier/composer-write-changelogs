@@ -17,19 +17,12 @@ use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
 
 abstract class AbstractOutputter
 {
-    /** @var OperationHandler[] */
-    protected $operationHandlers;
+    protected array $operationHandlers;
 
-    /** @var UrlGenerator[] */
-    protected $urlGenerators;
+    protected array $urlGenerators;
 
-    /** @var OperationInterface[] */
-    protected $operations;
+    protected array $operations;
 
-    /**
-     * @param OperationHandler[] $operationHandlers
-     * @param UrlGenerator[]     $urlGenerators
-     */
     public function __construct(array $operationHandlers, array $urlGenerators)
     {
         $this->urlGenerators = $urlGenerators;
@@ -37,30 +30,17 @@ abstract class AbstractOutputter
         $this->operations = [];
     }
 
-    /**
-     * @param OperationInterface $operation
-     * @return void
-     */
     public function addOperation(OperationInterface $operation): void
     {
         $this->operations[] = $operation;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->operations);
     }
 
-    /**
-     * @param array              $output
-     * @param OperationInterface $operation
-     *
-     * @return void
-     */
-    protected function createOperationOutput(array &$output, OperationInterface $operation)
+    protected function createOperationOutput(array &$output, OperationInterface $operation): void
     {
         $operationHandler = $this->getOperationHandler($operation);
 
@@ -74,18 +54,11 @@ abstract class AbstractOutputter
             $operationHandler->extractSourceUrl($operation)
         );
 
-        $output = array_merge(
-            $output,
-            $operationHandler->getOutput($operation, $urlGenerator)
-        );
+        $operationOutput = $operationHandler->getOutput($operation, $urlGenerator);
+        $output = $operationOutput ? array_merge($output, $operationOutput) : $output;
     }
 
-    /**
-     * @param OperationInterface $operation
-     *
-     * @return OperationHandler|null
-     */
-    protected function getOperationHandler(OperationInterface $operation)
+    protected function getOperationHandler(OperationInterface $operation): ?OperationHandler
     {
         foreach ($this->operationHandlers as $operationHandler) {
             if ($operationHandler->supports($operation)) {
@@ -96,12 +69,7 @@ abstract class AbstractOutputter
         return null;
     }
 
-    /**
-     * @param string $sourceUrl
-     *
-     * @return UrlGenerator|null
-     */
-    protected function getUrlGenerator($sourceUrl)
+    protected function getUrlGenerator(?string $sourceUrl): ?UrlGenerator
     {
         foreach ($this->urlGenerators as $urlGenerator) {
             if ($urlGenerator->supports($sourceUrl)) {

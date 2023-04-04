@@ -17,10 +17,7 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class WordPressUrlGeneratorTest extends TestCase
 {
-    /**
-     * @var WordPressUrlGenerator
-     */
-    private $SUT;
+    private WordPressUrlGenerator $SUT;
 
     protected function setUp(): void
     {
@@ -82,7 +79,7 @@ class WordPressUrlGeneratorTest extends TestCase
      */
     public function testItGeneratesReleaseUrls(): void
     {
-        $this->assertFalse($this->SUT->generateReleaseUrl(
+        $this->assertNull($this->SUT->generateReleaseUrl(
             'http://themes.svn.wordpress.org/minimize/',
             new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
         ));

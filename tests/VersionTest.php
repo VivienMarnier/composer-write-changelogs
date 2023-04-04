@@ -16,8 +16,7 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class VersionTest extends TestCase
 {
-    /** @var Version */
-    private $SUT;
+    private Version $SUT;
 
     /**
      * @test

@@ -18,8 +18,7 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class BitbucketUrlGeneratorTest extends TestCase
 {
-    /** @var BitbucketUrlGenerator */
-    private $SUT;
+    private BitbucketUrlGenerator $SUT;
 
     protected function setUp(): void
     {
@@ -146,7 +145,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateCompareUrl(
                 '/home/toto/work/my-package',
                 $versionFrom,
@@ -155,7 +154,7 @@ class BitbucketUrlGeneratorTest extends TestCase
             )
         );
 
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme1/repo',
                 $versionFrom,
@@ -208,14 +207,14 @@ class BitbucketUrlGeneratorTest extends TestCase
      */
     public function testItDoesNotGenerateReleaseUrls(): void
     {
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateReleaseUrl(
                 'https://bitbucket.org/acme/repo',
                 new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
             )
         );
 
-        $this->assertFalse(
+        $this->assertNull(
             $this->SUT->generateReleaseUrl(
                 'https://bitbucket.org/acme/repo.git',
                 new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')

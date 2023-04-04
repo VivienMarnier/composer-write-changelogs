@@ -15,21 +15,14 @@ use Spiriit\ComposerWriteChangelogs\Outputter\FileOutputter;
 
 class ConfigBuilder
 {
-    /** @var string[] */
-    private static $validOutputFormatValues = [
+    private static array $validOutputFormatValues = [
         FileOutputter::TEXT_FORMAT,
         FileOutputter::JSON_FORMAT,
     ];
 
-    /** @var string[] */
-    private $warnings = [];
+    private array $warnings = [];
 
-    /**
-     * @param array $extra
-     *
-     * @return Config
-     */
-    public function build(array $extra)
+    public function build(array $extra): Config
     {
         $this->reset();
 
@@ -69,10 +62,7 @@ class ConfigBuilder
         return new Config($gitlabHosts, $changelogsDirPath, $outputFileFormat);
     }
 
-    /**
-     * @return string[]
-     */
-    public function getWarnings()
+    public function getWarnings(): array
     {
         return $this->warnings;
     }
@@ -82,15 +72,7 @@ class ConfigBuilder
         $this->warnings = [];
     }
 
-    /**
-     * @param array  $extra
-     * @param string $key
-     * @param mixed  $default
-     * @param string $additionalMessage
-     *
-     * @return string
-     */
-    private static function createWarningFromInvalidValue(array $extra, $key, $default, $additionalMessage = '')
+    private static function createWarningFromInvalidValue(array $extra, string $key, string $default, string $additionalMessage = ''): string
     {
         $warning = sprintf(
             'Invalid value "%s" for option "%s", defaulting to "%s".',

@@ -20,15 +20,13 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
 
     /**
      * Returns the domain of the service, like "example.org".
-     *
-     * @return string
      */
-    abstract protected function getDomain();
+    abstract protected function getDomain(): string;
 
     /**
      * {@inheritdoc}
      */
-    public function supports($sourceUrl)
+    public function supports(string $sourceUrl): bool
     {
         return false !== strpos($sourceUrl, $this->getDomain());
     }
@@ -38,12 +36,8 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
      *
      * It ensures there is no .git part in http url. It also supports ssh urls
      * by converting them in their http equivalent format.
-     *
-     * @param string $sourceUrl
-     *
-     * @return string
      */
-    protected function generateBaseUrl($sourceUrl)
+    protected function generateBaseUrl(?string $sourceUrl): string
     {
         if ($this->isSshUrl($sourceUrl)) {
             return $this->transformSshUrlIntoHttp($sourceUrl);
@@ -64,12 +58,8 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
      * Get the version to use for the compare url.
      *
      * For dev versions, it returns the commit short hash in full pretty version.
-     *
-     * @param Version $version
-     *
-     * @return string
      */
-    protected function getCompareVersion(Version $version)
+    protected function getCompareVersion(Version $version): string
     {
         if ($version->isDev()) {
             return substr(
@@ -83,12 +73,8 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
 
     /**
      * Extracts information like user and repository from the http url.
-     *
-     * @param string $sourceUrl
-     *
-     * @return array
      */
-    protected function extractRepositoryInformation($sourceUrl)
+    protected function extractRepositoryInformation(string $sourceUrl): array
     {
         $pattern = '#' . $this->getDomain() . '/' . self::REGEX_USER . '/' . self::REGEX_REPOSITORY . '#';
 
@@ -108,24 +94,16 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
 
     /**
      * Returns whether an url uses a ssh git protocol.
-     *
-     * @param string $url
-     *
-     * @return bool
      */
-    private function isSshUrl($url)
+    private function isSshUrl(string $url): bool
     {
         return false !== strpos($url, 'git@');
     }
 
     /**
      * Transform an ssh git url into a http one.
-     *
-     * @param string $url
-     *
-     * @return string
      */
-    private function transformSshUrlIntoHttp($url)
+    private function transformSshUrlIntoHttp(string $url): string
     {
         $pattern = '#git@' . $this->getDomain() . ':' . self::REGEX_USER . '/' . self::REGEX_REPOSITORY . '.git$#';
 

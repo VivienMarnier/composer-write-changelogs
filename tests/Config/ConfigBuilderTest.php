@@ -16,8 +16,7 @@ use Spiriit\ComposerWriteChangelogs\Config\ConfigBuilder;
 
 class ConfigBuilderTest extends TestCase
 {
-    /** @var ConfigBuilder */
-    private $SUT;
+    private ConfigBuilder $SUT;
 
     protected function setUp(): void
     {

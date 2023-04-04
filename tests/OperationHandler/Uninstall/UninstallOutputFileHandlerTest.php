@@ -22,11 +22,9 @@ use Spiriit\ComposerWriteChangelogs\tests\resources\FakeUrlGenerator;
 
 class UninstallOutputFileHandlerTest extends TestCase
 {
-    /** @var UninstallOutputFileHandler */
-    private $uninstallOutputFileHandlerText;
+    private UninstallOutputFileHandler $uninstallOutputFileHandlerText;
 
-    /** @var UninstallOutputFileHandler */
-    private $uninstallOutputFileHandlerJson;
+    private UninstallOutputFileHandler $uninstallOutputFileHandlerJson;
 
     protected function setUp(): void
     {
@@ -135,7 +133,7 @@ class UninstallOutputFileHandlerTest extends TestCase
 
         $urlGenerator = new FakeUrlGenerator(
             true,
-            false,
+            null,
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
@@ -161,7 +159,7 @@ class UninstallOutputFileHandlerTest extends TestCase
         $urlGenerator = new FakeUrlGenerator(
             true,
             'https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
-            false
+            'https://example.com/acme/my-project/release/v1.0.1'
         );
 
         $expectedOutput = [

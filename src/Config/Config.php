@@ -15,49 +15,30 @@ class Config
 {
     public const CHANGELOGS_DIR = 'changelogs';
 
-    /** @var string[] */
-    private $gitlabHosts;
+    private array $gitlabHosts;
 
-    /** @var string */
-    private $changelogsDirPath;
+    private ?string $changelogsDirPath;
 
-    /**
-     * @var string
-     */
-    private $outputFileFormat;
+    private string $outputFileFormat;
 
-    /**
-     * @param array  $gitlabHosts
-     * @param string $changelogsDirPath
-     * @param string $outputFileFormat
-     */
-    public function __construct(array $gitlabHosts, $changelogsDirPath, $outputFileFormat)
+    public function __construct(array $gitlabHosts, ?string $changelogsDirPath, string $outputFileFormat)
     {
         $this->gitlabHosts = $gitlabHosts;
         $this->changelogsDirPath = $changelogsDirPath;
         $this->outputFileFormat = $outputFileFormat;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getGitlabHosts()
+    public function getGitlabHosts(): array
     {
         return $this->gitlabHosts;
     }
 
-    /**
-     * @return string
-     */
-    public function getChangelogsDirPath()
+    public function getChangelogsDirPath(): ?string
     {
         return $this->changelogsDirPath;
     }
 
-    /**
-     * @return string
-     */
-    public function getOutputFileFormat()
+    public function getOutputFileFormat(): string
     {
         return $this->outputFileFormat;
     }

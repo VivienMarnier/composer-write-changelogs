@@ -21,7 +21,7 @@ abstract class AbstractUninstallHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function supports(OperationInterface $operation)
+    public function supports(OperationInterface $operation): bool
     {
         return $operation instanceof UninstallOperation;
     }
@@ -29,7 +29,7 @@ abstract class AbstractUninstallHandler implements OperationHandler
     /**
      * {@inheritdoc}
      */
-    public function extractSourceUrl(OperationInterface $operation)
+    public function extractSourceUrl(OperationInterface $operation): ?string
     {
         if (!($operation instanceof UninstallOperation)) {
             throw new \LogicException('Operation should be an instance of UninstallOperation');
@@ -38,7 +38,8 @@ abstract class AbstractUninstallHandler implements OperationHandler
         return $operation->getPackage()->getSourceUrl();
     }
 
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): ?array
     {
+        return [];
     }
 }

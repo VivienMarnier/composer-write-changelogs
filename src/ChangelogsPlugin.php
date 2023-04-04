@@ -28,23 +28,17 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
 {
     public const EXTRA_KEY = 'composer-write-changelogs';
 
-    /** @var Composer */
-    private $composer;
+    private Composer $composer;
 
-    /** @var IOInterface */
-    private $io;
+    private IOInterface $io;
 
-    /** @var Outputter */
-    private $outputter;
+    private Outputter $outputter;
 
-    /** @var FileOutputter */
-    private $fileOutputter;
+    private FileOutputter $fileOutputter;
 
-    /** @var ConfigLocator */
-    private $configLocator;
+    private ConfigLocator $configLocator;
 
-    /** @var Config */
-    private $config;
+    private Config $config;
 
     /**
      * {@inheritdoc}
@@ -73,7 +67,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PackageEvents::POST_PACKAGE_UPDATE => [
@@ -91,9 +85,6 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param PackageEvent $event
-     */
     public function postPackageOperation(PackageEvent $event): void
     {
         $operation = $event->getOperation();
@@ -122,6 +113,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      */
     private function autoloadNeededClasses(): void
     {
+        /** @var string $file */
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__, \FilesystemIterator::SKIP_DOTS)) as $file) {
             if ('.php' === substr($file, 0, -4)) {
                 class_exists(__NAMESPACE__ . str_replace('/', '\\', substr($file, \strlen(__DIR__), -4)));
@@ -176,10 +168,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         }
     }
 
-    /**
-     * @return string
-     */
-    private function getFileExtension()
+    private function getFileExtension(): string
     {
         if (FileOutputter::JSON_FORMAT === $this->config->getOutputFileFormat()) {
             return '.json';

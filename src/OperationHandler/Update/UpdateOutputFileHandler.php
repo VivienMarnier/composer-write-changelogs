@@ -14,7 +14,6 @@ namespace Spiriit\ComposerWriteChangelogs\OperationHandler\Update;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\Package\PackageInterface;
-use Composer\Package\Version\VersionParser;
 use Composer\Semver\Comparator;
 use Spiriit\ComposerWriteChangelogs\Outputter\FileOutputter;
 use Spiriit\ComposerWriteChangelogs\UrlGenerator\UrlGenerator;
@@ -22,10 +21,7 @@ use Spiriit\ComposerWriteChangelogs\Version;
 
 class UpdateOutputFileHandler extends AbstractUpdateHandler
 {
-    /**
-     * @var string
-     */
-    private $outputFormat;
+    private string $outputFormat;
 
     public function __construct(string $outputFormat)
     {
@@ -35,7 +31,7 @@ class UpdateOutputFileHandler extends AbstractUpdateHandler
     /**
      * {@inheritdoc}
      */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): array
     {
         if (!($operation instanceof UpdateOperation)) {
             throw new \LogicException('Operation should be an instance of UpdateOperation');
@@ -51,14 +47,14 @@ class UpdateOutputFileHandler extends AbstractUpdateHandler
             $initialPackage->getPrettyVersion(),
             method_exists($initialPackage, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
                 ? $initialPackage->getFullPrettyVersion()
-                : VersionParser::formatVersion($initialPackage)
+                : $initialPackage->getPrettyVersion()
         );
         $versionTo = new Version(
             $targetPackage->getVersion(),
             $targetPackage->getPrettyVersion(),
             method_exists($targetPackage, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
                 ? $targetPackage->getFullPrettyVersion()
-                : VersionParser::formatVersion($targetPackage)
+                : $targetPackage->getPrettyVersion()
         );
 
         $action = 'updated';
@@ -104,17 +100,7 @@ class UpdateOutputFileHandler extends AbstractUpdateHandler
         return $output;
     }
 
-    /**
-     * @param PackageInterface  $initialPackage
-     * @param PackageInterface  $targetPackage
-     * @param Version           $versionFrom
-     * @param Version           $versionTo
-     * @param string            $action
-     * @param UrlGenerator|null $urlGenerator
-     *
-     * @return array
-     */
-    private function getJsonOutput(PackageInterface $initialPackage, PackageInterface $targetPackage, Version $versionFrom, Version $versionTo, string $action, ?UrlGenerator $urlGenerator)
+    private function getJsonOutput(PackageInterface $initialPackage, PackageInterface $targetPackage, Version $versionFrom, Version $versionTo, string $action, ?UrlGenerator $urlGenerator): array
     {
         $output['operation'] = 'update';
         $output['package'] = $initialPackage->getName();
@@ -149,17 +135,7 @@ class UpdateOutputFileHandler extends AbstractUpdateHandler
         return $output;
     }
 
-    /**
-     * @param PackageInterface  $initialPackage
-     * @param PackageInterface  $targetPackage
-     * @param Version           $versionFrom
-     * @param Version           $versionTo
-     * @param string            $action
-     * @param UrlGenerator|null $urlGenerator
-     *
-     * @return array
-     */
-    private function getTextOutput(PackageInterface $initialPackage, PackageInterface $targetPackage, Version $versionFrom, Version $versionTo, string $action, ?UrlGenerator $urlGenerator)
+    private function getTextOutput(PackageInterface $initialPackage, PackageInterface $targetPackage, Version $versionFrom, Version $versionTo, string $action, ?UrlGenerator $urlGenerator): array
     {
         $output = [];
 

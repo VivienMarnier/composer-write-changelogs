@@ -13,57 +13,38 @@ namespace Spiriit\ComposerWriteChangelogs;
 
 class Version
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $pretty;
+    private string $pretty;
 
-    /** @var string */
-    private $fullPretty;
+    private string $fullPretty;
 
-    /**
-     * @param string $name
-     * @param string $pretty
-     * @param string $fullPretty
-     */
-    public function __construct($name, $pretty, $fullPretty)
+    public function __construct(string $name, string $pretty, string $fullPretty)
     {
         $this->name = $name;
         $this->pretty = $pretty;
         $this->fullPretty = $fullPretty;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getPretty()
+    public function getPretty(): string
     {
         return $this->pretty;
     }
 
-    /**
-     * @return string
-     */
-    public function getFullPretty()
+    public function getFullPretty(): string
     {
         return $this->fullPretty;
     }
 
     /**
      * Return whether the version is dev or not.
-     *
-     * @return bool
      */
-    public function isDev()
+    public function isDev(): bool
     {
         return 'dev-' === substr($this->name, 0, 4) || '-dev' === substr($this->name, -4);
     }
@@ -71,10 +52,8 @@ class Version
     /**
      * Return the version string for CLI Output
      * In case of dev version it adds the vcs hash.
-     *
-     * @return string
      */
-    public function getCliOutput()
+    public function getCliOutput(): string
     {
         $cliOutput = $this->getPretty();
         if ($this->isDev()) {

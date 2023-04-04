@@ -12,6 +12,7 @@
 namespace Spiriit\ComposerWriteChangelogs\Outputter;
 
 use Composer\DependencyResolver\Operation\OperationInterface;
+use Exception;
 
 class FileOutputter extends AbstractOutputter
 {
@@ -20,9 +21,9 @@ class FileOutputter extends AbstractOutputter
     public const JSON_FORMAT = 'json';
 
     /**
-     * @return string
+     * @throws Exception
      */
-    public function getOutput(string $outputFormat)
+    public function getOutput(string $outputFormat): string
     {
         $output = [];
 
@@ -33,6 +34,11 @@ class FileOutputter extends AbstractOutputter
         } else {
             if (self::JSON_FORMAT === $outputFormat) {
                 $output = $this->handleJsonOutput($output);
+                if (!$output = json_encode($output, JSON_UNESCAPED_SLASHES)) {
+                    throw new Exception('The output could not be formatted.');
+                }
+
+                return $output;
             } else {
                 $output[] = 'Changelogs summary:';
                 foreach ($this->operations as $operation) {
@@ -42,21 +48,15 @@ class FileOutputter extends AbstractOutputter
             }
         }
 
-        return self::JSON_FORMAT === $outputFormat ? json_encode($output, JSON_UNESCAPED_SLASHES) : implode("\n", $output);
+        return implode("\n", $output);
     }
 
-    /**
-     * @param OperationInterface $operation
-     * @param string|null        $outputFormat
-     *
-     * @return array|void
-     */
-    protected function createOperationJsonOutput(OperationInterface $operation)
+    protected function createOperationJsonOutput(OperationInterface $operation): ?array
     {
         $operationHandler = $this->getOperationHandler($operation);
 
         if (!$operationHandler) {
-            return;
+            return [];
         }
 
         $urlGenerator = $this->getUrlGenerator(
@@ -66,12 +66,7 @@ class FileOutputter extends AbstractOutputter
         return $operationHandler->getOutput($operation, $urlGenerator);
     }
 
-    /**
-     * @param array $output
-     *
-     * @return array
-     */
-    private function handleJsonOutput(array $output)
+    private function handleJsonOutput(array $output): array
     {
         $i = 0;
         foreach ($this->operations as $operation) {
