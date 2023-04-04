@@ -52,16 +52,6 @@ jobs:
                 key: "php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}-flags-${{ matrix.composer-flags }}"
                 restore-keys: "php-"
 
-            - name: Cache composer dependencies
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ github.sha }}
-                  restore-keys: ${{ runner.os }}-composer-
-
-            - name: Allow dev dependencies
-              run: if [ "${{ matrix.minimum-stability }}" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
-
             - name: Install Composer dependencies
               run: composer update ${{ matrix.composer-flags }} --prefer-dist
 
