@@ -16,7 +16,6 @@ use Composer\Config;
 use Composer\DependencyResolver\DefaultPolicy;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\Request;
 use Composer\EventDispatcher\EventDispatcher;
 use Composer\Factory;
 use Composer\Installer\PackageEvent;
@@ -53,16 +52,16 @@ class ChangelogsPluginTest extends TestCase
         $this->config->merge([
             'config' => [
                 'home' => __DIR__,
+                'allow-plugins' => [
+                    'spiriit/composer-write-changelogs' => true,
+                ],
             ],
         ]);
 
         $this->io = new BufferIO();
-
         $this->composer = Factory::create($this->io, $this->config->raw()['config']);
-        /* $this->composer = new Composer(); */
         $this->composer->setConfig($this->config);
         $this->composer->setPackage(new RootPackage('my/project', '1.0.0', '1.0.0'));
-//        $this->composer->setLocker(new Locker($this->io,));
         $this->composer->setPluginManager(new PluginManager($this->io, $this->composer));
         $this->composer->setEventDispatcher(new EventDispatcher($this->composer, $this->io));
 
@@ -238,10 +237,11 @@ OUTPUT;
      */
     private function addComposerPlugin(PluginInterface $plugin): void
     {
-        $pluginManagerReflection = new \ReflectionClass($this->composer->getPluginManager());
-        $addPluginReflection = $pluginManagerReflection->getMethod('addPlugin');
-        $addPluginReflection->setAccessible(true);
-        $addPluginReflection->invoke($this->composer->getPluginManager(), $plugin);
+        $this->composer->getPluginManager()->addPlugin($plugin, false, new Package('spiriit/composer-write-changelogs', 'v1.0.0', 'v1.0.0'));
+//        $pluginManagerReflection = new \ReflectionClass($this->composer->getPluginManager());
+//        $addPluginReflection = $pluginManagerReflection->getMethod('addPlugin');
+//        $addPluginReflection->setAccessible(true);
+//        $addPluginReflection->invoke($this->composer->getPluginManager(), $plugin, false, new Package('spiriit/composer-write-changelogs','v1.0.0', 'v1.0.0'));
     }
 
     private function getUpdateOperation(): UpdateOperation
@@ -276,10 +276,7 @@ OUTPUT;
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
+            new CompositeRepository([])
         );
     }
 
@@ -307,10 +304,7 @@ OUTPUT;
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
+            new CompositeRepository([])
         );
     }
 }

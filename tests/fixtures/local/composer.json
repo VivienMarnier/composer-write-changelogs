@@ -1,4 +1,10 @@
 {
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "spiriit/composer-write-changelogs": true
+        }
+    },
     "extra": {
         "my-local-config": {
             "foo": "bar"
