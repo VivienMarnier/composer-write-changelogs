@@ -14,6 +14,7 @@ namespace Spiriit\ComposerWriteChangelogs\tests;
 use Composer\Composer;
 use Composer\Config;
 use Composer\DependencyResolver\DefaultPolicy;
+use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\DependencyResolver\Pool;
 use Composer\EventDispatcher\EventDispatcher;
@@ -277,12 +278,8 @@ OUTPUT;
             new CompositeRepository([])
         );
     }
-
-    /**
-     * @param $operation
-     *
-     */
-    private function dispatchPostPackageUpdateEvent($operation): void
+    
+    private function dispatchPostPackageUpdateEvent(OperationInterface $operation): void
     {
         if (version_compare(PluginInterface::PLUGIN_API_VERSION, '2.0.0') >= 0) {
             $this->composer->getEventDispatcher()->dispatchPackageEvent(
