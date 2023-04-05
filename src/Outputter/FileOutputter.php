@@ -39,13 +39,13 @@ class FileOutputter extends AbstractOutputter
                 }
 
                 return $output;
-            } else {
+            }  
                 $output[] = 'Changelogs summary:';
                 foreach ($this->operations as $operation) {
                     $this->createOperationOutput($output, $operation);
                 }
                 $output[] = '';
-            }
+            
         }
 
         return implode("\n", $output);

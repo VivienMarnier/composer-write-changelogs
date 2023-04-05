@@ -32,7 +32,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItSupportsUpdateOperation(): void
+    public function test_it_supports_update_operation(): void
     {
         $operation = new UpdateOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0'),
@@ -45,7 +45,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItDoesNotSupportNonUpdateOperation(): void
+    public function test_it_does_not_support_non_update_operation(): void
     {
         $this->assertFalse($this->SUT->supports(new FakeOperation('')));
     }
@@ -53,7 +53,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItExtractsSourceUrl(): void
+    public function test_it_extracts_source_url(): void
     {
         $package1 = new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0');
         $package1->setSourceUrl('https://example.com/acme/my-project1.git');
@@ -72,7 +72,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItThrowsExceptionWhenExtractingSourceUrlFromNonUpdateOperation(): void
+    public function test_it_throws_exception_when_extracting_source_url_from_non_update_operation(): void
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of UpdateOperation');
@@ -83,7 +83,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItGetsOutputWithoutUrlGenerator(): void
+    public function test_it_gets_output_without_url_generator(): void
     {
         $package1 = new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0');
         $package1->setSourceUrl('https://example.com/acme/my-project1.git');
@@ -106,7 +106,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItGetsOutputWithUrlGeneratorNoSupportingCompareUrl(): void
+    public function test_it_gets_output_with_url_generator_no_supporting_compare_url(): void
     {
         $operation = new UpdateOperation(
             new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0'),
@@ -133,7 +133,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItGetsOutputWithUrlGeneratorNoSupportingReleaseUrl(): void
+    public function test_it_gets_output_with_url_generator_no_supporting_release_url(): void
     {
         $operation = new UpdateOperation(
             new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0'),
@@ -162,7 +162,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItGetsOutputWithUrlGeneratorSupportingAllUrls(): void
+    public function test_it_gets_output_with_url_generator_supporting_all_urls(): void
     {
         $operation = new UpdateOperation(
             new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0'),
@@ -190,7 +190,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItThrowsExceptionWhenGettingOutputFromNonUpdateOperation(): void
+    public function test_it_throws_exception_when_getting_output_from_non_update_operation(): void
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of UpdateOperation');
@@ -201,7 +201,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItUsesCorrectActionName(): void
+    public function test_it_uses_correct_action_name(): void
     {
         $package1 = new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0');
         $package2 = new Package('acme/my-project2', 'v1.0.1.0', 'v1.0.1');
@@ -232,7 +232,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItOutputsTheCorrectSemverColors(): void
+    public function test_it_outputs_the_correct_semver_colors(): void
     {
         $base = new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0');
         $patch = new Package('acme/my-project1', 'v1.0.1.0', 'v1.0.1');
@@ -276,7 +276,7 @@ class UpdateHandlerTest extends TestCase
     /**
      * @test
      */
-    public function testItDisplaysVcsRevisionForDevPackage(): void
+    public function test_it_displays_vcs_revision_for_dev_package(): void
     {
         $package1 = new Package('acme/my-project1', 'dev-master', 'dev-master');
         $package1->setSourceType('git');

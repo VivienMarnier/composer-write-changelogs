@@ -29,7 +29,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItSupportsGitlabUrls()
+    public function test_it_supports_gitlab_urls()
     {
         $this->assertTrue($this->SUT->supports('https://gitlab.company.org/phpunit/phpunit-mock-objects.git'));
         $this->assertTrue($this->SUT->supports('https://gitlab.company.org/symfony/console'));
@@ -41,7 +41,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItDoesNotSupportNonGitlabUrls()
+    public function test_it_does_not_support_non_gitlab_urls()
     {
         $this->assertFalse($this->SUT->supports('https://company.org/about-us'));
         $this->assertFalse($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
@@ -52,7 +52,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItGeneratesCompareUrlsWithOrWithoutGitExtensionInSourceUrl()
+    public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -83,7 +83,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItGeneratesCompareUrlsWithDevVersions()
+    public function test_it_generates_compare_urls_with_dev_versions()
     {
         $versionFrom = new Version('v.1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -130,7 +130,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItDoesNotGenerateCompareUrlsAcrossForks()
+    public function test_it_does_not_generate_compare_urls_across_forks()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -150,7 +150,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItDoesNotGenerateCompareUrlsForUnsupportedUrl()
+    public function test_it_does_not_generate_compare_urls_for_unsupported_url()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -179,7 +179,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItGeneratesCompareUrlsWithSshSourceUrl()
+    public function test_it_generates_compare_urls_with_ssh_source_url()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -200,7 +200,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItDoesNotGenerateReleaseUrlsForDevVersion()
+    public function test_it_does_not_generate_release_urls_for_dev_version()
     {
         $this->assertNull(
             $this->SUT->generateReleaseUrl(
@@ -222,7 +222,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItGeneratesReleaseUrls()
+    public function test_it_generates_release_urls()
     {
         $this->assertSame(
             'https://gitlab.company.org/acme/repo/tags/v1.0.1',
@@ -246,7 +246,7 @@ class GitlabUrlGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testItGeneratesReleaseUrlWithSshSourceUrl()
+    public function test_it_generates_release_url_with_ssh_source_url()
     {
         $this->assertSame(
             'https://gitlab.company.org/acme/repo/tags/v1.0.1',

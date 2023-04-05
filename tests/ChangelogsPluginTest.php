@@ -99,7 +99,7 @@ class ChangelogsPluginTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testItIsRegisteredAndActivated(): void
+    public function test_it_is_registered_and_activated(): void
     {
         $plugin = new ChangelogsPlugin();
 
@@ -113,7 +113,7 @@ class ChangelogsPluginTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testItReceivesEvent(): void
+    public function test_it_receives_event(): void
     {
         $this->addComposerPlugin(new ChangelogsPlugin());
 
@@ -139,7 +139,7 @@ OUTPUT;
     /**
      * @test
      */
-    public function testEventsAreHandled(): void
+    public function test_events_are_handled(): void
     {
         $plugin = new ChangelogsPlugin();
         $plugin->activate($this->composer, $this->io);
@@ -168,7 +168,7 @@ OUTPUT;
     /**
      * @test
      */
-    public function testItWriteTextSummaryFile(): void
+    public function test_it_write_text_summary_file(): void
     {
         $this->config->merge([
             'config' => [
@@ -202,7 +202,7 @@ OUTPUT;
     /**
      * @test
      */
-    public function testItWriteJsonSummaryFile(): void
+    public function test_it_write_json_summary_file(): void
     {
         $this->config->merge([
             'config' => [
@@ -229,11 +229,9 @@ OUTPUT;
     }
 
     /**
-     * @param PluginInterface $plugin
      *
      * @throws \ReflectionException
      *
-     * @return void
      */
     private function addComposerPlugin(PluginInterface $plugin): void
     {
@@ -283,7 +281,6 @@ OUTPUT;
     /**
      * @param $operation
      *
-     * @return void
      */
     private function dispatchPostPackageUpdateEvent($operation): void
     {

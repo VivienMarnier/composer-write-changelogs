@@ -47,9 +47,9 @@ class InstallOutputFileHandler extends AbstractInstallHandler
 
         if (FileOutputter::JSON_FORMAT === $this->outputFormat) {
             return $this->getJsonOutput($package, $version, $urlGenerator);
-        } else {
+        }  
             return $this->getTextOutput($package, $version, $urlGenerator);
-        }
+        
     }
 
     private function getTextOutput(PackageInterface $package, Version $version, UrlGenerator $urlGenerator = null): array

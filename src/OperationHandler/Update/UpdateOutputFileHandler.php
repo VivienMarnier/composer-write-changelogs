@@ -65,9 +65,9 @@ class UpdateOutputFileHandler extends AbstractUpdateHandler
 
         if (FileOutputter::JSON_FORMAT === $this->outputFormat) {
             return $this->getJsonOutput($initialPackage, $targetPackage, $versionFrom, $versionTo, $action, $urlGenerator);
-        } else {
+        }  
             return $this->getTextOutput($initialPackage, $targetPackage, $versionFrom, $versionTo, $action, $urlGenerator);
-        }
+        
 
         if ($urlGenerator) {
             $compareUrl = $urlGenerator->generateCompareUrl(

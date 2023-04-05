@@ -26,7 +26,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test
      */
-    public function testItHasADefaultSetup(): void
+    public function test_it_has_a_default_setup(): void
     {
         $extra = [];
 
@@ -43,7 +43,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test
      */
-    public function testItWarnsWhenGitlabHostsIsNotAnArray(): void
+    public function test_it_warns_when_gitlab_hosts_is_not_an_array(): void
     {
         $extra = [
             'gitlab-hosts' => 'gitlab.company1.com',
@@ -61,10 +61,10 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test
      */
-    public function testItWarnsWhenChangelogsDirPathIsSpecifiedButEmpty(): void
+    public function test_it_warns_when_changelogs_dir_path_is_specified_but_empty(): void
     {
         $extra = [
-          'changelogs-dir-path' => '',
+            'changelogs-dir-path' => '',
         ];
 
         $config = $this->SUT->build($extra);
@@ -79,7 +79,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test
      */
-    public function testItWarnsWhenOutputFileFormatIsInvalid(): void
+    public function test_it_warns_when_output_file_format_is_invalid(): void
     {
         $extra = [
             'output-file-format' => 'foo',
@@ -97,7 +97,7 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test
      */
-    public function testItAcceptsValidSetup(): void
+    public function test_it_accepts_valid_setup(): void
     {
         $extra = [
             'gitlab-hosts' => ['gitlab.company1.com', 'gitlab.company2.com'],

@@ -58,7 +58,7 @@ class FileOutputterTest extends TestCase
     /**
      * @test
      */
-    public function testItAddsOperation(): void
+    public function test_it_adds_operation(): void
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -91,7 +91,7 @@ TEXT;
     /**
      * @test
      */
-    public function testItOutputsWithNoSupportedUrlGenerator(): void
+    public function test_it_outputs_with_no_supported_url_generator(): void
     {
         $this->fileOutputterText = new FileOutputter($this->operationHandlers, []);
 
@@ -123,7 +123,7 @@ TEXT;
     /**
      * @test
      */
-    public function testItOutputsWithNoSupportedOperationHandler(): void
+    public function test_it_outputs_with_no_supported_operation_handler(): void
     {
         $this->fileOutputterText = new FileOutputter([], []);
 
@@ -151,7 +151,7 @@ TEXT;
     /**
      * @test
      */
-    public function testItOutputsRightText(): void
+    public function test_it_outputs_right_text(): void
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -184,7 +184,7 @@ TEXT;
     /**
      * @test
      */
-    public function testItOutputsRightJson(): void
+    public function test_it_outputs_right_json(): void
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -207,7 +207,7 @@ TEXT;
     /**
      * @test
      */
-    public function testItOutputsNothingWithoutOperation(): void
+    public function test_it_outputs_nothing_without_operation(): void
     {
         $expectedOutput = <<<TEXT
 No changelogs summary

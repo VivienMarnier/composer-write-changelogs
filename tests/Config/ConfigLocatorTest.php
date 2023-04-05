@@ -57,7 +57,7 @@ class ConfigLocatorTest extends TestCase
     /**
      * @test
      */
-    public function testItLocatesLocalConfig(): void
+    public function test_it_locates_local_config(): void
     {
         $key = 'my-local-config';
 
@@ -70,7 +70,7 @@ class ConfigLocatorTest extends TestCase
     /**
      * @test
      */
-    public function testItLocatesGlobalConfig(): void
+    public function test_it_locates_global_config(): void
     {
         $key = 'my-global-config';
 
@@ -83,7 +83,7 @@ class ConfigLocatorTest extends TestCase
     /**
      * @test
      */
-    public function testItDoesNotLocateNonExistingConfig(): void
+    public function test_it_does_not_locate_non_existing_config(): void
     {
         $key = 'my-non-existing-config';
 

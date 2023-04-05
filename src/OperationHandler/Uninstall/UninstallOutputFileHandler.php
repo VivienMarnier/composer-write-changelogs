@@ -44,9 +44,9 @@ class UninstallOutputFileHandler extends AbstractUninstallHandler
 
         if (FileOutputter::JSON_FORMAT === $this->outputFormat) {
             return $this->getJsonOutput($package, $version);
-        } else {
+        }  
             return $this->getTextOutput($package, $version);
-        }
+        
     }
 
     private function getJsonOutput(PackageInterface $package, Version $version): array
