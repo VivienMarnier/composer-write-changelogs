@@ -62,8 +62,8 @@ class ConfigBuilder
 
         if(array_key_exists('write-summary-file', $extra)){
             if(0 === strlen($extra['write-summary-file'])){
-                $this->warnings[] = '"write-summary-file" is specified but empty. Ignoring and using default state';
-            }else if(!$extra['write-summary-file']){
+                $this->warnings[] = '"write-summary-file" is specified but empty. Ignoring and using default state.';
+            }else if(strcmp('false', $extra['write-summary-file']) == 0){
                 $writeSummaryFile = false;
             }
         }

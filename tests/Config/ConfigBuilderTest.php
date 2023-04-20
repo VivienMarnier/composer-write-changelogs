@@ -36,6 +36,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertEmpty($config->getGitlabHosts());
         $this->assertEquals('text', $config->getOutputFileFormat());
         $this->assertNull($config->getChangelogsDirPath());
+        $this->assertTrue($config->isWriteSummaryFile());
 
         $this->assertCount(0, $this->SUT->getWarnings());
     }
@@ -79,6 +80,24 @@ class ConfigBuilderTest extends TestCase
     /**
      * @test
      */
+    public function test_it_warns_when_write_summary_file_is_specified_but_empty(): void
+    {
+        $extra = [
+            'write-summary-file' => '',
+        ];
+
+        $config = $this->SUT->build($extra);
+
+        $this->assertInstanceOf('Spiriit\ComposerWriteChangelogs\Config\Config', $config);
+        $this->assertEmpty($config->getGitlabHosts());
+
+        $this->assertCount(1, $this->SUT->getWarnings());
+        $this->assertStringContainsString('"write-summary-file" is specified but empty. Ignoring and using default state.', $this->SUT->getWarnings()[0]);
+    }
+
+    /**
+     * @test
+     */
     public function test_it_warns_when_output_file_format_is_invalid(): void
     {
         $extra = [
@@ -103,6 +122,7 @@ class ConfigBuilderTest extends TestCase
             'gitlab-hosts' => ['gitlab.company1.com', 'gitlab.company2.com'],
             'changelogs-dir-path' => 'my/custom/path',
             'output-file-format' => 'text',
+            'write-summary-file' => 'false',
         ];
 
         $config = $this->SUT->build($extra);
@@ -111,6 +131,8 @@ class ConfigBuilderTest extends TestCase
         $this->assertCount(2, $config->getGitlabHosts());
         $this->assertEquals('text', $config->getOutputFileFormat());
         $this->assertEquals('my/custom/path', $config->getChangelogsDirPath());
+        var_dump($config->isWriteSummaryFile());
+        $this->assertFalse($config->isWriteSummaryFile());
 
         $this->assertCount(0, $this->SUT->getWarnings());
     }
