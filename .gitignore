@@ -8,7 +8,8 @@ phpunit.xml
 .php-version
 log/
 cov/
+test/temp/
+test/temp/*
 changelogs*
-tests*
 
 composer.lock
