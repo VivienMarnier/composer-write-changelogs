@@ -47,7 +47,6 @@ class Config
     }
 
     /**
-     * @return bool
      */
     public function isWriteSummaryFile(): bool
     {

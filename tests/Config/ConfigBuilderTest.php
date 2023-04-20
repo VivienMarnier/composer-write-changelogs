@@ -131,7 +131,6 @@ class ConfigBuilderTest extends TestCase
         $this->assertCount(2, $config->getGitlabHosts());
         $this->assertEquals('text', $config->getOutputFileFormat());
         $this->assertEquals('my/custom/path', $config->getChangelogsDirPath());
-        var_dump($config->isWriteSummaryFile());
         $this->assertFalse($config->isWriteSummaryFile());
 
         $this->assertCount(0, $this->SUT->getWarnings());
