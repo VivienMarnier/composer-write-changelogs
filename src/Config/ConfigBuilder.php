@@ -29,6 +29,7 @@ class ConfigBuilder
         $gitlabHosts = [];
         $changelogsDirPath = null;
         $outputFileFormat = FileOutputter::TEXT_FORMAT;
+        $writeSummaryFile = true;
 
         if (array_key_exists('gitlab-hosts', $extra)) {
             if (!is_array($extra['gitlab-hosts'])) {
@@ -59,7 +60,15 @@ class ConfigBuilder
             }
         }
 
-        return new Config($gitlabHosts, $changelogsDirPath, $outputFileFormat);
+        if(array_key_exists('write-summary-file', $extra)){
+            if(0 === strlen($extra['write-summary-file'])){
+                $this->warnings[] = '"write-summary-file" is specified but empty. Ignoring and using default state';
+            }else if(!$extra['write-summary-file']){
+                $writeSummaryFile = false;
+            }
+        }
+
+        return new Config($gitlabHosts, $changelogsDirPath, $outputFileFormat, $writeSummaryFile);
     }
 
     public function getWarnings(): array

@@ -21,11 +21,14 @@ class Config
 
     private string $outputFileFormat;
 
-    public function __construct(array $gitlabHosts, ?string $changelogsDirPath, string $outputFileFormat)
+    private bool $writeSummaryFile;
+
+    public function __construct(array $gitlabHosts, ?string $changelogsDirPath, string $outputFileFormat, bool $writeSummaryFile)
     {
         $this->gitlabHosts = $gitlabHosts;
         $this->changelogsDirPath = $changelogsDirPath;
         $this->outputFileFormat = $outputFileFormat;
+        $this->writeSummaryFile = $writeSummaryFile;
     }
 
     public function getGitlabHosts(): array
@@ -41,5 +44,13 @@ class Config
     public function getOutputFileFormat(): string
     {
         return $this->outputFileFormat;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWriteSummaryFile(): bool
+    {
+        return $this->writeSummaryFile;
     }
 }

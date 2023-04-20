@@ -143,6 +143,10 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
             return;
         }
 
+        if(!$this->config->isWriteSummaryFile()){
+            return;
+        }
+
         $this->doWriteSummaryFile();
         //TODO: $this->handleWebhookCall();
     }
