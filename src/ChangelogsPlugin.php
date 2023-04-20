@@ -174,7 +174,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
             $this->io->error('The directory ' . $changelogsDirPath . ' was not created. Maybe you specified wrong dir path to extra changelogs-dir-path configuration.');
         }
 
-        $filename = $changelogsDirPath . 'changelogs-' . date('Y-m-d') . '-' . date('H:i') .  $this->getFileExtension();
+        $filename = $changelogsDirPath . '/changelogs-' . date('Y-m-d') . '-' . date('H:i') .  $this->getFileExtension();
 
         if (!file_put_contents($filename, $this->fileOutputter->getOutput($this->config->getOutputFileFormat()))) {
             $this->io->error('The file ' . $filename . ' was not created. Maybe you specified wrong dir path to extra changelogs-dir-path configuration or you do not have right access to specified directory.');
