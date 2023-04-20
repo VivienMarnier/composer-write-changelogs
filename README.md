@@ -27,28 +27,3 @@ Credits
 License
 -------------
 composer-write-changelogs is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Installation
-
-
-<br/>
-
-
-
-<br/>
-
-## Further documentation
-### Plugin configuration
-As all plugin, you can 
-For more configuration of the plugin, you can see the configuration documentation file [click-here](doc/configuration.md)
-
-You can also see the source code on [github](https://github.com/lexik/)
-
-<br/>
-
-## Credits
-
-
-<br/>
-
-

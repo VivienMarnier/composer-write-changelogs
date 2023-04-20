@@ -9,7 +9,7 @@ You can setup the configuration by adding parameters in `extra` section of your 
 {
     "extra": {
         "composer-write-changelogs": {
-          "write-summary-file": true,
+          "write-summary-file": "false",
           "changelogs-dir-path": "my/custom/path",
           "output-file-format": "json",
           "gitlab-hosts": [
@@ -44,7 +44,7 @@ should consider as Gitlab instance.
         "composer-write-changelogs": {
             "gitlab-hosts": [
                 "gitlab.my-company.org"
-            ],
+            ]
         }
     }
 }
@@ -64,7 +64,6 @@ configuration.
 {
     "extra": {
         "composer-write-changelogs": {
-          "write-summary-file": true,
           "changelogs-dir-path": "my/custom/path"
         }
     }
@@ -82,6 +81,20 @@ The only 2 possible variables are `json` and `text`.
     "extra": {
         "composer-write-changelogs": {
           "output-file-format": "json"
+        }
+    }
+}
+```
+
+<br/>
+
+### Write Summary File
+You can disable the plugin by adding `write-summary-file` in the configuration extra.<br/>
+```json
+{
+    "extra": {
+        "composer-write-changelogs": {
+          "write-summary-file": "false"
         }
     }
 }
