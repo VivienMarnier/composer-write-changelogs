@@ -1,33 +1,36 @@
-# Plugin configuration
+Configuration
+===============
 
-This plugin supports some configuration.
+<br/>
 
 ## Location
-
-Configuration can be setup by adding parameters in the `extra` section of your
-`composer.json`.
-
+You can setup the configuration by adding parameters in `extra` section of your `composer` configuration file.
 ```json
 {
     "extra": {
-        "composer-changelogs": {
-            "{{ the configuration key }}": "{{ the configuration value }}",
+        "composer-write-changelogs": {
+          "write-summary-file": true,
+          "changelogs-dir-path": "my/custom/path",
+          "output-file-format": "json",
+          "gitlab-hosts": [
+            "gitlab.my-company.org"
+          ]
         }
     }
 }
 ```
 
-This `composer-write-changelogs` extra config can be put either in your local
-`composer.json` (the one of the project you are working on) or the global
-one in your `.composer` home directory (like
-`/home/{user}/.composer/composer.json` on Linux).
+### Locally
+The configuration file is the `composer.json` of your project.<br/>
+By configuring this file, you configure only composer for the __local__ project
 
-## Configuration available
+### General
+The configuration file is the `.composer` file of your computer.<br/>
+This one allows to configure your composer on __all__ your computer
 
-The available configuration options are listed below:
+<br/>
 
-### Gitlab hosts
-
+## Gitlab hosts
 Unlike Github or Bitbucket that have fixed domains, Gitlab instances are
 self-hosted so there is no way to automatically detects that a domain
 correspond to a Gitlab instance.
@@ -47,18 +50,15 @@ should consider as Gitlab instance.
 }
 ```
 
-## WriteSummaryFile feature
+<br/>
 
-composer-write-changelogs plugin allows to write summary changelogs into textual files
-after you ran your `composer update` command.
-This can be usefull if you need to exploit the changelogs.
+## Folder path
+This option should contain the path of the directory where write summary feature will write changelogs files.
+The path can be either absolute or relative to the `composer.json` file containing the plugin
+configuration.
 
-Please read the full documentation below to enable and make use of this feature.
-
-## Setup
-
-By default, this feature is disabled. To enabled it, you just need to set up
-some `extra` config in your composer.json:
+By default, the changelogs directory will be created from the directory of the `composer.json` file containing the plugin
+configuration.
 
 ```json
 {
@@ -71,20 +71,21 @@ some `extra` config in your composer.json:
 }
 ```
 
-## Options available
+<br/>
 
-### write-summary-file
+## Output file format
+By default, the file format for summaries is `.txt`, but you can export it to a `JSON` file instead.<br/>
+The only 2 possible variables are `json` and `text`.
 
-This option is a boolean.
+```json
+{
+    "extra": {
+        "composer-write-changelogs": {
+          "output-file-format": "json"
+        }
+    }
+}
+```
 
-- `false` is the default option. It disables completely write summary file feature.
 
-### changelogs-dir-path
-
-This option should contain the path of the directory where write summary feature will write changelogs files.
-The path can be either absolute or relative to the `composer.json` file containing the plugin
-configuration.
-
-By default, the changelogs directory will be created from the directory of the `composer.json` file containing the plugin
-configuration.
 

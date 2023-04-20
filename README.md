@@ -1,47 +1,54 @@
-# composer-write-changelogs
+SpiriitComposerWriteChangelogs
+============================
+The composer changelogs writer is a plugin for Composer. <br/>
+This plugin allows to provide a summary of all dependencies updated by Composer. <br/>
+It is compatible with PHP 7.4+
 
-composer-write-changelogs is a plugin for Composer. It displays some texts after each
-Composer update to nicely summarize the modified packages with links to release
-and compare urls and write it to .txt or .json file.
+<br/>
+
+Documentation
+-------------
+The bulk of the documentation is stored in the `doc/` directory:
+
+* [Getting started](doc/getting-started.md)
+   * [Prerequisites](doc/getting-started.md#prerequisites)
+   * [Installation](doc/getting-started.md#installation)
+   * [Usage](doc/getting-started.md#usage)
+* [Further documentation](doc/)
+   * [Configuration references](doc/configuration.md)
+
+<br/>
+
+Credits
+-------------
+* [Loïck PIERA](https://github.com/pyrech/composer-changelogs) for the reused code base
+* Spiriit <dev@spiriit.com>
+
+License
+-------------
+composer-write-changelogs is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Installation
 
-You can install it either globally:
 
-```shell
-composer global require "spiriit/composer-write-changelogs"
-```
+<br/>
 
-or locally:
 
-```shell
-composer require --dev "spiriit/composer-write-changelogs"
-```
 
-## Usage
-
-That's it! Composer will enable automatically the plugin as soon it's
-installed. Just run your Composer updates as usual :)
-
-If you no longer want to display summary, you can either:
-- run your Composer command with the option `--no-plugins`
-- uninstall the package
+<br/>
 
 ## Further documentation
+### Plugin configuration
+As all plugin, you can 
+For more configuration of the plugin, you can see the configuration documentation file [click-here](doc/configuration.md)
 
-Here is some documentation about the project:
+You can also see the source code on [github](https://github.com/lexik/)
 
-* [Configuration, like gitlab hosts setup](doc/configuration.md)
-
-You can see the current and past versions using one of the following:
-
-* the `git tag` command
+<br/>
 
 ## Credits
 
-* [Loïck Piera](https://https://github.com/pyrech/composer-changelogs) for the reused code base
 
-## License
+<br/>
 
-composer-write-changelogs is licensed under the MIT License - see the [LICENSE](LICENSE)
-file for details.
+
