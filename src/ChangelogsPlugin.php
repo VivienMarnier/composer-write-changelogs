@@ -163,7 +163,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         $changelogsDirPath = $projectRootPath . '/' . Config::CHANGELOGS_DIR;
 
         if ($this->config->getChangelogsDirPath()) {
-            $changelogsDirPath = $this->config->getChangelogsDirPath();
+            $changelogsDirPath = $projectRootPath . '/' . $this->config->getChangelogsDirPath();
         }
 
         if (!is_dir($changelogsDirPath) && !file_exists($changelogsDirPath) && !mkdir($changelogsDirPath)) {
